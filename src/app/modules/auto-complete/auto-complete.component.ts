@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AutoCompleteService } from './auto-complete.service';
+import { TitleInfo } from './auto-complete.model';
 
 @Component({
   selector: 'app-auto-complete',
@@ -9,13 +10,14 @@ import { AutoCompleteService } from './auto-complete.service';
 export class AutoCompleteComponent implements OnInit {
   moviesList: any;
   searchText: string = '';
-  movies: Array<string> = [];
+  movies: Array<TitleInfo> = [];
   moviesId: any;
   userMsg = false; /** to display message to the user */
   userNotification: string;
   constructor(private autoCompleteService: AutoCompleteService) { }
 
   ngOnInit() {
+    this.clearMoviesDataList();
   }
 
   fetchMovies() {
@@ -27,30 +29,45 @@ export class AutoCompleteComponent implements OnInit {
         this.displayUserNotification(data.message);
       } else if (data.Search) {
         data.Search.forEach(movie => {
-          this.movies.push(movie.Title);
+          const titleInfo = {
+            title: movie.Title,
+            year: movie.Year
+          };
+          this.movies.push(titleInfo);
         });
       } else {
+        this.clearMoviesDataList();
         if (data.Response === 'False') {
-          this.movies.push(data.Error || data.message);
+          const titleInfo = {
+            title: 'Please improve your search',
+            year: data.Error
+          };
+          this.movies.push(titleInfo);
         }
       }
 
     });
   }
 
+  onMovieSelect(options) {
+    console.log(options);
+  }
+
   debounce(limit) {
     let timer;
     clearTimeout(timer);
     timer = setTimeout(() => {
-      if (this.searchText) {
+      if (this.searchText.length) {
         this.fetchMovies();
+      } else {
+        this.clearMoviesDataList();
       }
     }, limit);
   }
 
   onKeyUp(e: any) {
     this.searchText = e.target.value;
-    this.debounce(300);
+    this.debounce(400);
   }
 
   clearMoviesDataList() {

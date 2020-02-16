@@ -1,1 +1,9 @@
-<p>auto-complete works!</p>
+<div class="auto-complete">
+  <input class="type-ahead" id="searchId" [(value)]="searchText" type="search" list="moviesId"
+    placeholder="Search Movies" (keyup)="onKeyUp($event)">
+  <datalist id="moviesId">
+    <option *ngFor="let item of movies" [value]="item"></option>
+  </datalist>
+  <datalist id="movies"></datalist>
+  <div class='user-message' *ngIf="userMsg">{{userNotification}}</div>
+</div>

@@ -93,3 +93,4 @@ Assumptions:
 * Tried implementing all the features mentioned in the take home project.
 * Currently if user types first few letters, if the API call returns movies list. If user clicks enter, saving those few letters as a movie pill. I am taking few letters as a pill because: API call can fetch a specific movie just by giving first few letters of the movie title. Therefore, I kept it as is. If we think that looks like a bug or hinders the user performance, We can fix it.
 * If there is any technical error, say API error or API key error and if user searching for sixth movie title. Created a user notification message.
+* We can delete the selected pills from the search bar. Also, backspace works to remove the selected movie. Whereas, I believe, backspace works only on windows. I haven't tested in Mac Book.

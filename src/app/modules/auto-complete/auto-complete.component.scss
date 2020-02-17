@@ -1,3 +1,7 @@
+.auto-complete {
+  height: 100%;
+}
+
 .auto-complete .user-message {
   background: red;
   color: white;
@@ -10,13 +14,44 @@
   text-align: center;
 }
 
-.auto-complete input#searchId{
+.auto-complete input#searchId {
+  padding: 4px;
+  font-size: 17px;
+  /* border: 1px solid grey; */
+  border: 0;
+  /* width: 30%; */
+  /* background: #f1f1f1; */
+  border-radius: 1em;
+  outline: none;
+  cursor: pointer;
+}
+
+.auto-complete .input-div {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
-  width: 30%;
-  background: #f1f1f1;
+  background: #ffffff;
   border-radius: 1em;
   outline: none;
+  cursor: pointer;
 }
 
+.auto-complete .selected-movie-class {
+  display: inline-block;
+}
+
+.auto-complete #selectedMovieId {
+  border-radius: 10px;
+  border: none;
+  background: #ecebeb;
+  margin: 3px;
+  outline: none;
+  padding: 4px;
+}
+
+.auto-complete img#close-icon {
+  display: inline-block;
+  height: 10px;
+  width: 11px;
+  cursor: pointer;
+}

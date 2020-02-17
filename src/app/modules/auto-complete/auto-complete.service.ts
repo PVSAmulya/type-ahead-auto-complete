@@ -11,7 +11,6 @@ export class AutoCompleteService extends HttpService {
         // injector to access parent constructor HttpService
         super(injector);
     }
-
     getData(options) {
         return this.get(options);
     }

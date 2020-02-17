@@ -1,9 +1,16 @@
 <div class="auto-complete">
-  <input class="type-ahead" id="searchId" [(value)]="searchText" type="search" multiple="multiple" list="moviesId"
-    placeholder="Search Movies" (keyup)="onKeyUp($event)">
+  <div class="input-div">
+    <div class="selected-movie-class" *ngFor="let item of selectedMovies">
+      <button *ngIf="item && item.selectedMovie" id="selectedMovieId" type="text">{{item.selectedMovie}}
+        <img id="close-icon" src="../../../assets/close.png" (click)="removeSelectedMovie($event)"
+          [name]="item.selectedMovie" />
+      </button>
+    </div>
+    <input (change)='onMovieSelect($event)' class="type-ahead" id="searchId" [(value)]="searchText" type="search"
+      multiple="multiple" list="moviesId" placeholder="Search Movies" (keyup)="onKeyUp($event)">
+  </div>
   <datalist id="moviesId">
-    <option *ngFor="let item of movies" [value]="item.title" (click)="onMovieSelect($event)">{{item.year}}</option>
+    <option *ngFor="let item of movies" [value]="isSelectionValid && item.title || searchText">{{item.year}}</option>
   </datalist>
-  <datalist id="movies"></datalist>
   <div class='user-message' *ngIf="userMsg">{{userNotification}}</div>
 </div>

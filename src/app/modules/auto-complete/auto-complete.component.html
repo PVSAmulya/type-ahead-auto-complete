@@ -7,7 +7,8 @@
       </button>
     </div>
     <input (change)='onMovieSelect($event)' class="type-ahead" id="searchId" [(value)]="searchText" type="search"
-      multiple="multiple" list="moviesId" placeholder="Search Movies" (keyup)="onKeyUp($event)">
+      multiple="multiple" list="moviesId" placeholder="Search Movies" (keyup)="onKeyUp($event)"
+      (keydown)="onKeyDown($event)">
   </div>
   <datalist id="moviesId">
     <option *ngFor="let item of movies" [value]="isSelectionValid && item.title || searchText">{{item.year}}</option>

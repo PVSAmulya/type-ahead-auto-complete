@@ -27,6 +27,7 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
     this.clearMoviesDataList();
     const options = '&s=' + this.searchText;
     this.autoCompleteService.getData(options).subscribe(data => {
+      this.clearMoviesDataList();
       if (data.error) {
         this.isSelectionValid = false;
         this.displayUserNotification(data.message);
@@ -75,11 +76,12 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
   }
 
   removeSelectedMovie(options) {
+    this.clearMoviesDataList();
     delete this.selectedMoviesObj[options.target.name];
     this.selectedMovies.forEach((movie, index) => {
       if (movie.selectedMovie === options.target.name) {
         if (this.selectedMovies.length > 1) {
-          delete this.selectedMovies[index];
+          this.selectedMovies.splice(index, 1);
         } else {
           this.selectedMovies = [];
         }
@@ -87,11 +89,18 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
     });
   }
 
-  debounce(limit) {
+  popMovieFromSelectedList() {
+    const deletedMovie = this.selectedMovies.pop();
+    delete this.selectedMoviesObj[deletedMovie];
+  }
+
+  debounce(limit, event) {
     let timer;
     clearTimeout(timer);
     timer = setTimeout(() => {
-      if (this.searchText.length) {
+      if (event && event.key === 'Backspace' && !this.searchText.length && !event.target.value.length) {
+        this.popMovieFromSelectedList();
+      } else if (this.searchText.length) {
         this.fetchMovies();
       } else {
         this.clearMoviesDataList();
@@ -101,7 +110,12 @@ export class AutoCompleteComponent implements OnInit, OnDestroy {
 
   onKeyUp(e: any) {
     this.searchText = e.target.value;
-    this.debounce(400);
+    this.debounce(400, null);
+  }
+
+  onKeyDown(e: any) {
+    this.searchText = e.target.value;
+    this.debounce(400, e);
   }
 
   clearMoviesDataList() {

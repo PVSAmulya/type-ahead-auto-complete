@@ -14,14 +14,6 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
@@ -80,3 +72,24 @@ The MainRoutingModule will have:
 	imports: [RouterModule.forChild(routes)]
 
 Notice that forRoot sets up the routes to be loaded by the root application. The forChild sets up the routes to only be loaded when requested by the parent. It’s also important that AppModule only declares the AppComponent. Any component declared in AppModule will be loaded with the site and will not be lazy loaded.
+
+Instructions to run this project:
+
+Step 1: Please make sure your environment include Node.js and an npm package manager
+Step 2: Please change API key in src/environments/environment.prod and src/environments/environment.ts files
+Step 2: open the project in command prompt or any code editor say Visual Studio code and perform the following steps:
+          a) npm i
+          b) ng serve
+Tested in Google Chrome, Internet Explorer 10, Microsoft Edge. IE and Edge 
+Please run the project in production mode to test in Internet Explorer:
+Step 3: Production mode:
+          a) ng build --prod
+          b) node server.js
+
+Assumptions:
+
+* Used Angular framework. Whereas written the code entirely from scratch.
+* I developed half project until type ahead auto complete using plain javascript, html, css. Please find my code in using-plain-javascript folder. Due to time factors, I switched my project to Angular. Apologies in advance for sharing half project.
+* Tried implementing all the features mentioned in the take home project.
+* Currently if user types first few letters, if the API call returns movies list. If user clicks enter, saving those few letters as a movie pill. I am taking few letters as a pill because: API call can fetch a specific movie just by giving first few letters of the movie title. Therefore, I kept it as is. If we think that looks like a bug or hinders the user performance, We can fix it.
+* If there is any technical error, say API error or API key error and if user searching for sixth movie title. Created a user notification message.
